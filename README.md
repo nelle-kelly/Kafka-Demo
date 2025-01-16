@@ -162,11 +162,7 @@ Partitionnement : Kafka utilise la clé pour déterminer la partition du topic d
 
 Uniqueness : La clé n'a pas besoin d'être unique au niveau global du topic. Par exemple, plusieurs messages peuvent avoir la même clé (ce qui signifie qu'ils iront tous dans la même partition). En revanche, chaque message est unique grâce à son offset (identifiant dans la partition), même si les clés sont identiques.
 
-### Comment visualiser les réplicas ?
-Utilisez la commande suivante :
-```bash
-kafka-topics.sh --describe --topic <topic_name> --bootstrap-server localhost:9092
-```
+
 
 ---
 
