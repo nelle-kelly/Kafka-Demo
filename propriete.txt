@@ -1,0 +1,30 @@
+# Identifiant unique pour chaque broker Kafka
+process.roles=broker,controller
+
+# Identifiant de ce broker (doit être unique dans le cluster)
+node.id=1
+
+# Port utilisé par les clients pour se connecter
+listeners=PLAINTEXT://localhost:9092
+
+# Port utilisé par les contrôleurs pour communiquer
+controller.listener.names=CONTROLLER
+
+# Répertoire pour stocker les logs Kafka
+log.dirs=/tmp/kraft-logs
+
+# Chemin du fichier contenant le cluster ID
+metadata.log.dir=/tmp/kraft-metadata
+
+# Durée de rétention des segments de logs
+log.retention.hours=168
+
+# Taille maximale d'un segment de log
+log.segment.bytes=1073741824
+
+# Intervalle de nettoyage des logs
+log.retention.check.interval.ms=300000
+
+# Autres configurations de performance (facultatif)
+num.network.threads=3
+num.io.threads=8
