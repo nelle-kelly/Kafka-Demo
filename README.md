@@ -13,7 +13,6 @@ Apache Kafka est une plateforme distribuée de streaming qui permet de publier, 
 
 ### Prérequis
 - Java 8 ou version supérieure.
-- Scala préinstallé.
 - Machine Linux ou WSL (Windows Subsystem for Linux).
 
 ### Étapes d'installation
@@ -104,20 +103,21 @@ KRaft est pris en charge à partir de Kafka 2.8, mais la prise en charge complè
 Kraft remplace ZooKeeper pour gérer le consensus et simplifie l’architecture de Kafka. Pour activer Kraft :
 
 1. **Modifier `docker_compose.yml`** :
-   ```yaml
+
+```yaml
    services:
-  kafka:
-    image: moeenz/docker-kafka-kraft:latest
-    restart: always
-    ports:
-      - "9093:9093"
-    environment:
+   kafka:
+      image: moeenz/docker-kafka-kraft:latest
+      restart: always
+      ports:
+         - "9093:9093"
+   environment:
       - KRAFT_CONTAINER_HOST_NAME=kafka
       - KRAFT_CREATE_TOPICS=topic-a,topic-b,topic-c
       - KRAFT_PARTITIONS_PER_TOPIC=3
       - KRAFT_AUTO_CREATE_TOPICS=true
 
-   ```
+```
 
 et redemarer le container kafka
 
