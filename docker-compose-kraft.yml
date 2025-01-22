@@ -1,23 +1,11 @@
-version: '3.8'
 services:
   kafka:
-    image: confluentinc/cp-kafka:latest
-    container_name: kafka
+    image: moeenz/docker-kafka-kraft:latest
+    restart: always
     ports:
-      - "9092:9092"
       - "9093:9093"
     environment:
-      # Configuration KRaft
-      KAFKA_PROCESS_ROLES: broker,controller
-      KAFKA_NODE_ID: 1
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-      KAFKA_LOG_DIRS: /kafka-logs
-      KAFKA_METADATA_LOG_DIR: /kafka-metadata
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-    volumes:
-      - ./data/kafka-logs:/kafka-logs
-      - ./data/kafka-metadata:/kafka-metadata
-    restart: always
+      - KRAFT_CONTAINER_HOST_NAME=kafka
+      - KRAFT_CREATE_TOPICS=topic-a,topic-b,topic-c
+      - KRAFT_PARTITIONS_PER_TOPIC=3
+      - KRAFT_AUTO_CREATE_TOPICS=true

@@ -33,22 +33,22 @@ Apache Kafka est une plateforme distribuée de streaming qui permet de publier, 
    cd kafka_2.13-3.4.0
    ```
 
-3. 
 
-4. **Lancer ZooKeeper** :
+
+3. **Lancer ZooKeeper** :
    ```bash
    bin/zookeeper-server-start.sh config/zookeeper.properties
    ```
 
-5. **Lancer Kafka** :
+4. **Lancer Kafka** :
    ```bash
    bin/kafka-server-start.sh config/server.properties
    ```
 
-6. **Vérifier l'installation** :
+5. **Vérifier l'installation** :
    Créer un topic pour tester :
    ```bash
-   bin/kafka-topics.sh --create --topic test-topic --bootstrap-server localhost:9092
+   bin/kafka-topics.sh --create --topic topic-a --bootstrap-server localhost:9093
    ```
 
 ---
@@ -95,51 +95,31 @@ services:
    ```bash
    docker-compose up -d
    ```
-
-2. Tester l'installation :
-   ```bash
-   docker exec -it kafka bash
-   kafka-topics.sh --create --topic test-topic --bootstrap-server localhost:9092
-   ```
-
 ---
 
-## 3. Configuration de Kafka
 
-### Configuration avec ZooKeeper
-Par défaut, Kafka utilise ZooKeeper pour la gestion des métadonnées du cluster. Les paramètres pertinents sont dans `server.properties` :
-
-```properties
-zookeeper.connect=localhost:2181
-log.dirs=/tmp/kafka-logs
-broker.id=1
-offsets.topic.replication.factor=1
-```
-
-### Configuration avec Kraft (Kafka Raft)
+### Configuration avec Kraft (Docker)
 KRaft est pris en charge à partir de Kafka 2.8, mais la prise en charge complète est stabilisée dans Kafka 3.3 et au-delà. Assurez-vous que vous utilisez une version compatible.
 
 Kraft remplace ZooKeeper pour gérer le consensus et simplifie l’architecture de Kafka. Pour activer Kraft :
 
-1. **Modifier `server.properties`** :
-   ```properties
-   process.roles=broker,controller
-   controller.quorum.voters=1@localhost:9093
-   controller.listener.names=CONTROLLER
-   listeners=PLAINTEXT://:9092,CONTROLLER://:9093
-   log.dirs=/tmp/kraft-logs
-   node.id=1
+1. **Modifier `docker_compose.yml`** :
+   ```yaml
+   services:
+  kafka:
+    image: moeenz/docker-kafka-kraft:latest
+    restart: always
+    ports:
+      - "9093:9093"
+    environment:
+      - KRAFT_CONTAINER_HOST_NAME=kafka
+      - KRAFT_CREATE_TOPICS=topic-a,topic-b,topic-c
+      - KRAFT_PARTITIONS_PER_TOPIC=3
+      - KRAFT_AUTO_CREATE_TOPICS=true
+
    ```
 
-2. **Initialiser le cluster Kraft** :
-   ```bash
-   kafka-storage.sh format -t <uuid> -c config/server.properties
-   ```
-
-3. **Démarrer Kafka** :
-   ```bash
-   bin/kafka-server-start.sh config/server.properties
-   ```
+et redemarer le container kafka
 
 
 ---

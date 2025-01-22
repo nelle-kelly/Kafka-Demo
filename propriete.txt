@@ -1,7 +1,7 @@
 # Identifiant unique pour chaque broker Kafka
 process.roles=broker,controller
 
-# Identifiant de ce broker (doit être unique dans le cluster)
+# Identifiant de ce broker 
 node.id=1
 
 # Port utilisé par les clients pour se connecter

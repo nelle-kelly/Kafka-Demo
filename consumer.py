@@ -1,10 +1,10 @@
 from kafka import KafkaConsumer
 
 consumer = KafkaConsumer(
-    'test-topic',  # Le nom du topic
-    bootstrap_servers='localhost:9092',
+    'topic-a',  # Le nom du topic
+    bootstrap_servers='localhost:9093', 
     auto_offset_reset='earliest',
-      # Identifiant du groupe de consommateurs
+     
     key_deserializer=lambda k: k.decode() if k is not None else None,  # Vérification de la clé
     value_deserializer=lambda v: v.decode()  # Désérialisation de la valeur
 )

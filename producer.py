@@ -1,11 +1,8 @@
-import json
-from datetime import datetime
-from time import sleep
-from random import choice
+
 from kafka import KafkaProducer
 
 producer = KafkaProducer(
-    bootstrap_servers='localhost:9092',
+    bootstrap_servers='localhost:9093',
     
     key_serializer=lambda k: k.encode(),
     value_serializer=lambda v: v.encode()
@@ -17,7 +14,7 @@ while True:
         break
     value = input("Entrez la valeur du message : ")
     
-    producer.send('test-topic', key=key, value=value)
+    producer.send('topic-a', key=key, value=value)
     producer.flush()
     print(f"Message envoyé avec clé: {key} et valeur: {value}")
 
