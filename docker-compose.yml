@@ -1,5 +1,5 @@
 
-##### with Kraft ###################
+##### with Kraft (image docker test)###################
 services:
   kafka:
     image: moeenz/docker-kafka-kraft:latest
@@ -11,33 +11,17 @@ services:
       - KRAFT_CREATE_TOPICS=topic-a,topic-b,topic-c
       - KRAFT_PARTITIONS_PER_TOPIC=3
       - KRAFT_AUTO_CREATE_TOPICS=true
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9093
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9093
+      - KAFKA_PROCESS_ROLES=broker,controller
+      - KAFKA_NODE_ID=1
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@localhost:29093
+      - KAFKA_LOG_DIRS=/tmp/kafka-logs
+      - KAFKA_LOG_RETENTION_MS=-1  # indefini ( ms)
+      - KAFKA_LOG_RETENTION_BYTES=1073741824  # 1 Go (optionnel, définit la taille limite)
+      - KAFKA_LOG_CLEANUP_POLICY=delete  # Supprimer les messages après la rétention
 
 
 
 
-########## with zookeeper ##############
-# version: '3.8'
-#services:
-  # zookeeper:
-  #   image: confluentinc/cp-zookeeper:7.5.0
-  #   container_name: zookeeper
-  #   ports:
-  #     - "2181:2181"
-  #   environment:
-  #     ZOOKEEPER_CLIENT_PORT: 2181
-  #     ZOOKEEPER_TICK_TIME: 2000
-
-  # kafka:
-  #   image: confluentinc/cp-kafka:7.5.0
-  #   container_name: kafka
-  #   ports:
-  #     - "9093:9093"
-  #   environment:
-  #     KAFKA_BROKER_ID: 1
-  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  #     KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093
-  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093
-  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  #   depends_on:
-  #     - zookeeper
 

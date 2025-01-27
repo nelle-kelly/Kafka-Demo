@@ -58,6 +58,35 @@ Apache Kafka est une plateforme distribuée de streaming qui permet de publier, 
 - Docker installé et fonctionnel.
 - Docker Compose installé.
 
+### Images Docker
+
+Les images Docker Confluent sont préferable car elle proviennent de la plate-forme Confluent qui est ...
+
+À partir de la plate-forme Confluent 7.5, ZooKeeper est obsolète pour les nouveaux déploiements. Confluent recommande le mode KRaft pour les nouveaux déploiements.
+
+Pour extraire une image Confluent Platform pour une architecture spécifique, utilisez la commande suivante.
+
+```bash
+  docker pull confluentinc/<image-name>:<tag>
+
+```
+### Exemple d'image
+
+`cp-kafka` est l’image Docker officielle de Confluent pour Kafka et inclut la version communautaire de Kafka.
+`confluent-local` est un package Kafka optimisé pour le développement local. Cette image Docker vous permet de démarrer rapidement Kafka en mode KRaft sans configuration
+
+Pour identifier la version la plus récente de l’image du type de système d’exploitation par défaut: `latest`
+
+
+```yaml
+   image: confluentinc/confluent-local:latest
+   image: confluentinc/cp-zookeeper:latest
+   image: confluentinc/cp-kafka:7.8.0
+  
+   
+```
+Si vous utilisez Confluent Kafka (une distribution complète de Kafka avec des outils et fonctionnalités supplémentaires), vous pouvez utiliser la bibliothèque Python confluent-kafka pour interagir avec Kafka. Cette bibliothèque est plus performante que kafka-python et est spécialement conçue pour fonctionner avec Confluent Kafka.
+
 ### Création du fichier `docker-compose.yml`
 Dans un dossier nommé `kafka-docker` :
 
