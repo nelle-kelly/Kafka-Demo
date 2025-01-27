@@ -60,7 +60,7 @@ Apache Kafka est une plateforme distribuée de streaming qui permet de publier, 
 
 ### Images Docker
 
-Les images Docker Confluent sont préferable car elle proviennent de la plate-forme Confluent qui est ...
+Les images Docker Confluent sont préferable car elle proviennent de la plate-forme Confluent qui est une distribution complète de Kafka.
 
 À partir de la plate-forme Confluent 7.5, ZooKeeper est obsolète pour les nouveaux déploiements. Confluent recommande le mode KRaft pour les nouveaux déploiements.
 
